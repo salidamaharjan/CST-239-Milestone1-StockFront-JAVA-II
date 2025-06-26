@@ -70,6 +70,7 @@ public class Cart {
 		return totalPrice;
 	}
 
+    
 	/**
 	 * Clears all products from the cart.
 	 */

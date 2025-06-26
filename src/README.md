@@ -3,6 +3,8 @@
 Here's a video of the project:
 [Link To Walk Through Video](https://youtu.be/ZBWapg3FWZ4)
 
+Link to GitHub: [GitHub](https://github.com/salidamaharjan/CST-239-Milestone1-StockFront-JAVA-II/tree/master/src)
+
 ## Overview
 
 **StoreFront** is a simple Java console application that simulates a basic online shopping system. It allows users to:
