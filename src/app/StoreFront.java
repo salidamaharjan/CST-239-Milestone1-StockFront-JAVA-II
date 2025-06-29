@@ -24,8 +24,7 @@ import java.util.Scanner;
 public class StoreFront {
 	private Inventory productInventory;
 	private Cart cart;
-	Scanner scnr = new Scanner(System.in);
-
+	
 	/**
 	 * Constructs a new StoreFront with empty inventory and cart.
 	 */
@@ -163,7 +162,6 @@ public class StoreFront {
 		System.out.print("Your Choice: ");
 		choice = scnr.nextInt();
 
-//		scnr.close();
 		return choice;
 	}
 
@@ -257,5 +255,5 @@ public class StoreFront {
 
 		scnr.close(); // Close scanner when done
 	}
-
+	
 }
