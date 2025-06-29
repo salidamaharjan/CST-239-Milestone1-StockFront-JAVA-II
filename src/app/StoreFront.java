@@ -33,10 +33,6 @@ public class StoreFront {
 	 * 
 	 * @return Cart instance
 	 */
-//	public Cart viewCart() {
-//		return this.cart;
-//	}
-
 	public Cart viewCart() {
 	    Map<SalableProduct, Integer> products = cart.getProducts();
 	    
@@ -54,8 +50,9 @@ public class StoreFront {
 	        System.out.println("---------------------\n");
 	    }
 
-	    return cart;  // Return the cart object itself
+	    return cart;  
 	}
+	
 	/**
 	 * Adds a new product to the inventory.
 	 * 
@@ -160,9 +157,12 @@ public class StoreFront {
 		int choice = 0;
 
 		// Add sample products to inventory
-		store.addProductToInventory(new SalableProduct("Laptop", "High-end gaming laptop", 1200.00, 10));
-		store.addProductToInventory(new SalableProduct("Phone", "Latest smartphone", 800.00, 15));
-		store.addProductToInventory(new SalableProduct("Headphones", "Wireless headphones", 150.00, 30));
+		store.addProductToInventory(new SalableProduct("Axe", "Sharp and can swing", 1200.00, 10));
+		store.addProductToInventory(new SalableProduct("Sword", "Sharp and pointy", 800.00, 15));
+		store.addProductToInventory(new SalableProduct("Sheild", "Stops things", 1500, 30));
+		store.addProductToInventory(new SalableProduct("Helmet", "Save my head", 150.00, 20));
+		store.addProductToInventory(new SalableProduct("Health Herb", "Tastes bad but helps", 150.00, 25));
+		store.addProductToInventory(new SalableProduct("Med Kit", "Life saver", 150.00, 35));
 
 		// Main interaction loop
 		while (choice != 6) {
@@ -176,17 +176,25 @@ public class StoreFront {
 			case 2:
 				// Add product to cart
 				System.out.println("Which item?");
-				System.out.println("1. Laptop");
-				System.out.println("2. Phone");
-				System.out.println("3. Headphones");
-				System.out.print("Your Choice: ");
+				System.out.println("1. Axe");
+				System.out.println("2. Sword");
+				System.out.println("3. Sheild");
+				System.out.println("4. Helmet");
+				System.out.println("5. Health Herb");
+				System.out.println("6. Med Kit");
 				int itemChoice = scnr.nextInt();
 				if (itemChoice == 1) {
-					store.addToCart("Laptop", 1);
+					store.addToCart("Axe", 1);
 				} else if (itemChoice == 2) {
-					store.addToCart("Phone", 1);
+					store.addToCart("Sword", 1);
 				} else if (itemChoice == 3) {
-					store.addToCart("Headphones", 1);
+					store.addToCart("Sheild", 1);
+				} else if (itemChoice == 4) {
+					store.addToCart("Helmet", 1);
+				} else if (itemChoice == 5) {
+					store.addToCart("Health Herb", 1);
+				} else if (itemChoice == 6) {
+					store.addToCart("Med Kit", 1);
 				}
 				break;
 			case 3:
