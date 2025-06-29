@@ -195,7 +195,7 @@ public class StoreFront {
 				break;
 			case 2:
 				// Add product to cart
-				System.out.println("Which item?");
+				System.out.println("Which item do you want to add?");
 				System.out.println("1. Axe");
 				System.out.println("2. Sword");
 				System.out.println("3. Sheild");
@@ -210,15 +210,30 @@ public class StoreFront {
 					qty = scnr.nextInt();
 					store.addToCart("Axe", qty);
 				} else if (itemChoice == 2) {
-					store.addToCart("Sword", 1);
+					System.out.println("How many do you want to add?");
+					System.out.print("Entered Quantity: ");
+					qty = scnr.nextInt();
+					store.addToCart("Sword", qty);
 				} else if (itemChoice == 3) {
-					store.addToCart("Sheild", 1);
+					System.out.println("How many do you want to add?");
+					System.out.print("Entered Quantity: ");
+					qty = scnr.nextInt();
+					store.addToCart("Sheild", qty);
 				} else if (itemChoice == 4) {
-					store.addToCart("Helmet", 1);
+					System.out.println("How many do you want to add?");
+					System.out.print("Entered Quantity: ");
+					qty = scnr.nextInt();
+					store.addToCart("Helmet", qty);
 				} else if (itemChoice == 5) {
-					store.addToCart("Health Herb", 1);
+					System.out.println("How many do you want to add?");
+					System.out.print("Entered Quantity: ");
+					qty = scnr.nextInt();
+					store.addToCart("Health Herb", qty);
 				} else if (itemChoice == 6) {
-					store.addToCart("Med Kit", 1);
+					System.out.println("How many do you want to add?");
+					System.out.print("Entered Quantity: ");
+					qty = scnr.nextInt();
+					store.addToCart("Med Kit", qty);
 				}
 				break;
 			case 3:
