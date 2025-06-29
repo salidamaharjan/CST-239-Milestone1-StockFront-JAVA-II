@@ -106,22 +106,43 @@ public class StoreFront {
 	 * Represents the main interface and logic for the store front application.
 	 */
 	public void removeFromCart(String productName, int qty) {
-		SalableProduct product = productInventory.getProductByName(productName);
-		if (product != null && product.getQuantity() >= qty) {
-			System.out.println("Product removed from cart");
-			cart.removeFromCart(product, qty);
-			System.out.println(
-					"--------------------------------------------------------------------------------------------");
-			System.out.println(
-					"--------------------------------------------------------------------------------------------");
-		} else {
-			System.out.println("Product not available in desired quantity.");
-			System.out.println(
-					"--------------------------------------------------------------------------------------------");
-			System.out.println(
-					"--------------------------------------------------------------------------------------------");
-		}
+	    SalableProduct product = productInventory.getProductByName(productName);
+	    // Check if the product exists in the cart
+	    if (product != null && cart.getProducts().containsKey(product)) {
+	        int currentQtyInCart = cart.getProducts().get(product);
+
+	        // Check if the quantity to remove is valid
+	        if (qty <= currentQtyInCart) {
+	            System.out.println("Product removed from cart");
+	            cart.removeFromCart(product, qty);
+	            System.out.println("--------------------------------------------------------------------------------------------");
+	        } else {
+	            System.out.println("Cannot remove more than the quantity in your cart.");
+	            System.out.println("You currently have " + currentQtyInCart + " of this product in your cart.");
+	            System.out.println("--------------------------------------------------------------------------------------------");
+	        }
+	    } else {
+	        System.out.println("Product not found in cart.");
+	        System.out.println("--------------------------------------------------------------------------------------------");
+	    }
 	}
+//	public void removeFromCart(String productName, int qty) {
+//		SalableProduct product = productInventory.getProductByName(productName);
+//		if (product != null && product.getQuantity() >= qty) {
+//			System.out.println("Product removed from cart");
+//			cart.removeFromCart(product, qty);
+//			System.out.println(
+//					"--------------------------------------------------------------------------------------------");
+//			System.out.println(
+//					"--------------------------------------------------------------------------------------------");
+//		} else {
+//			System.out.println("Product not available in desired quantity.");
+//			System.out.println(
+//					"--------------------------------------------------------------------------------------------");
+//			System.out.println(
+//					"--------------------------------------------------------------------------------------------");
+//		}
+//	}
 
 	/**
 	 * Purchases all items in the cart and updates inventory accordingly.
