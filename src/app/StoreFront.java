@@ -290,6 +290,9 @@ public class StoreFront {
 			case 6:
 				// remove product from cart
 				Cart cart = store.viewCart();
+				if(cart.getProducts().isEmpty()) {
+					break;
+				}
 				Map<SalableProduct, Integer> products = cart.getProducts();
 				System.out.println("Which product do you want to remove?");
 				for (Map.Entry<SalableProduct, Integer> entry : products.entrySet()) {
