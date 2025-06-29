@@ -4,6 +4,24 @@ import java.util.Map;
 import java.util.Scanner;
 
 /**
+ * Represents a store front where users can interact with the inventory, add products to the shopping cart,
+ * and make purchases.
+ * <p>
+ * The StoreFront class handles all operations related to viewing and managing the inventory, managing the shopping cart,
+ * and processing purchases. It interacts with other components like Inventory and Cart classes.
+ * </p>
+ *
+ * <p>
+ * This class provides a user-interactive interface through the console for a simulated e-commerce experience.
+ * </p>
+ * 
+ * @author Salida Maharjan
+ * @version 11.0
+ * @see Inventory
+ * @see Cart
+ * @see SalableProduct
+ */
+/**
  * Represents the Store Front, managing Inventory and Shopping Cart.
  */
 public class StoreFront {
@@ -148,6 +166,7 @@ public class StoreFront {
 		System.out.print("Your Choice: ");
 		choice = scnr.nextInt();
 
+		scnr.close();
 		return choice;
 	}
 
