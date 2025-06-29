@@ -21,9 +21,6 @@ import java.util.Scanner;
  * @see Cart
  * @see SalableProduct
  */
-/**
- * Represents the Store Front, managing Inventory and Shopping Cart.
- */
 public class StoreFront {
 	private Inventory productInventory;
 	private Cart cart;
