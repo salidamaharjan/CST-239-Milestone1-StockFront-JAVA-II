@@ -89,8 +89,34 @@ public class StoreFront {
 		if (product != null && product.getQuantity() >= qty) {
 			System.out.println("Product added to cart");
 			cart.addToCart(product, qty);
+			System.out.println(
+					"--------------------------------------------------------------------------------------------");
+			System.out.println(
+					"--------------------------------------------------------------------------------------------");
 		} else {
 			System.out.println("Product not available in desired quantity.");
+			System.out.println(
+					"--------------------------------------------------------------------------------------------");
+			System.out.println(
+					"--------------------------------------------------------------------------------------------");
+		}
+	}
+
+	public void removeFromCart(String productName, int qty) {
+		SalableProduct product = productInventory.getProductByName(productName);
+		if (product != null && product.getQuantity() >= qty) {
+			System.out.println("Product removed from cart");
+			cart.removeFromCart(product, qty);
+			System.out.println(
+					"--------------------------------------------------------------------------------------------");
+			System.out.println(
+					"--------------------------------------------------------------------------------------------");
+		} else {
+			System.out.println("Product not available in desired quantity.");
+			System.out.println(
+					"--------------------------------------------------------------------------------------------");
+			System.out.println(
+					"--------------------------------------------------------------------------------------------");
 		}
 	}
 
@@ -170,7 +196,8 @@ public class StoreFront {
 		System.out.println("3. View Cart");
 		System.out.println("4. Purchase item");
 		System.out.println("5. Cancel Purchase");
-		System.out.println("6. Exit");
+		System.out.println("6. Remove product from cart");
+		System.out.println("7. Exit");
 
 		System.out.print("Your Choice: ");
 		choice = scnr.nextInt();
@@ -186,7 +213,7 @@ public class StoreFront {
 		Scanner scnr = new Scanner(System.in);
 		int choice = 0;
 		int qty = 0;
-
+		String itemName = "";
 		// Add sample products to inventory
 		store.addProductToInventory(new SalableProduct("Axe", "Sharp and can swing", 1200.00, 10));
 		store.addProductToInventory(new SalableProduct("Sword", "Sharp and pointy", 800.00, 15));
@@ -198,7 +225,7 @@ public class StoreFront {
 		store.welcomeToStoreFront();
 
 		// Main interaction loop
-		while (choice != 6) {
+		while (choice != 7) {
 			choice = askUser(scnr);
 
 			switch (choice) {
@@ -222,56 +249,31 @@ public class StoreFront {
 					System.out.print("Entered Quantity: ");
 					qty = scnr.nextInt();
 					store.addToCart("Axe", qty);
-					System.out.println(
-							"--------------------------------------------------------------------------------------------");
-					System.out.println(
-							"--------------------------------------------------------------------------------------------");
 				} else if (itemChoice == 2) {
 					System.out.println("How many do you want to add?");
 					System.out.print("Entered Quantity: ");
 					qty = scnr.nextInt();
-					System.out.println(
-							"--------------------------------------------------------------------------------------------");
-					System.out.println(
-							"--------------------------------------------------------------------------------------------");
 					store.addToCart("Sword", qty);
 				} else if (itemChoice == 3) {
 					System.out.println("How many do you want to add?");
 					System.out.print("Entered Quantity: ");
 					qty = scnr.nextInt();
-					System.out.println(
-							"--------------------------------------------------------------------------------------------");
-					System.out.println(
-							"--------------------------------------------------------------------------------------------");
 					store.addToCart("Sheild", qty);
 				} else if (itemChoice == 4) {
 					System.out.println("How many do you want to add?");
 					System.out.print("Entered Quantity: ");
 					qty = scnr.nextInt();
 					store.addToCart("Helmet", qty);
-
-					System.out.println(
-							"--------------------------------------------------------------------------------------------");
-					System.out.println(
-							"--------------------------------------------------------------------------------------------");
 				} else if (itemChoice == 5) {
 					System.out.println("How many do you want to add?");
 					System.out.print("Entered Quantity: ");
 					qty = scnr.nextInt();
 					store.addToCart("Health Herb", qty);
-					System.out.println(
-							"--------------------------------------------------------------------------------------------");
-					System.out.println(
-							"--------------------------------------------------------------------------------------------");
 				} else if (itemChoice == 6) {
 					System.out.println("How many do you want to add?");
 					System.out.print("Entered Quantity: ");
 					qty = scnr.nextInt();
 					store.addToCart("Med Kit", qty);
-					System.out.println(
-							"--------------------------------------------------------------------------------------------");
-					System.out.println(
-							"--------------------------------------------------------------------------------------------");
 				}
 				break;
 			case 3:
@@ -286,6 +288,49 @@ public class StoreFront {
 				store.cancelPurchase();
 				break;
 			case 6:
+				// remove product from cart
+				Cart cart = store.viewCart();
+				Map<SalableProduct, Integer> products = cart.getProducts();
+				System.out.println("Which product do you want to remove?");
+				for (Map.Entry<SalableProduct, Integer> entry : products.entrySet()) {
+					SalableProduct product = entry.getKey();
+					System.out.println(product.getName());
+				}
+				System.out.print("Item you chose: ");
+				itemName = scnr.next();
+				if (itemName.toLowerCase().equals("axe")) {
+					System.out.println("How many do you want to remove?");
+					System.out.print("Entered Quantity: ");
+					qty = scnr.nextInt();
+					store.removeFromCart("Axe", qty);
+				} else if (itemName.toLowerCase().equals("sword")) {
+					System.out.println("How many do you want to remove?");
+					System.out.print("Entered Quantity: ");
+					qty = scnr.nextInt();
+					store.removeFromCart("Sword", qty);
+				} else if (itemName.toLowerCase().equals("sheild")) {
+					System.out.println("How many do you want to remove?");
+					System.out.print("Entered Quantity: ");
+					qty = scnr.nextInt();
+					store.removeFromCart("Sheild", qty);
+				} else if (itemName.toLowerCase().equals("helmet")) {
+					System.out.println("How many do you want to remove?");
+					System.out.print("Entered Quantity: ");
+					qty = scnr.nextInt();
+					store.removeFromCart("Helmet", qty);
+				} else if (itemName.toLowerCase().equals("health herb")) {
+					System.out.println("How many do you want to remove?");
+					System.out.print("Entered Quantity: ");
+					qty = scnr.nextInt();
+					store.removeFromCart("Health Herb", qty);
+				} else if (itemName.toLowerCase().equals("med kit")) {
+					System.out.println("How many do you want to remove?");
+					System.out.print("Entered Quantity: ");
+					qty = scnr.nextInt();
+					store.removeFromCart("Med Kit", qty);
+				}
+				break;
+			case 7:
 				// Exit program
 				System.out.println("Thank you for shopping with us!");
 				break;
