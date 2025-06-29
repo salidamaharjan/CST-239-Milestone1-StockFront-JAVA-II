@@ -124,14 +124,14 @@ public class StoreFront {
 	 * Cancels the current purchase and displays the saved cart contents.
 	 */
 	public void cancelPurchase() {
-		System.out.println("Your purchase is cancelled. Cart is saved.");
-		System.out.println("Cart Contents:");
 		Map<SalableProduct, Integer> products = cart.getProducts();
 		if (products.isEmpty()) {
 			System.out.println("Cart is empty.");
+			return;
 		} else {
 			for (Map.Entry<SalableProduct, Integer> entry : products.entrySet()) {
 				System.out.println(entry.getKey().getName() + " x " + entry.getValue());
+				System.out.println("Your purchase is cancelled. Cart is saved.");
 			}
 		}
 	}
