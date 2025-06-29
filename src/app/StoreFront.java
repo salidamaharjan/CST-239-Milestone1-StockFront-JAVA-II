@@ -52,25 +52,25 @@ public class StoreFront {
 	 * @return Cart instance
 	 */
 	public Cart viewCart() {
-	    Map<SalableProduct, Integer> products = cart.getProducts();
-	    
-	    if (products.isEmpty()) {
-	        System.out.println("Your cart is empty.");
-	    } else {
-	        System.out.println("\n--- Cart Contents ---");
-	        // Iterate over the map and print product details
-	        for (Map.Entry<SalableProduct, Integer> entry : products.entrySet()) {
-	            SalableProduct product = entry.getKey();
-	            int quantity = entry.getValue();
-	            System.out.printf("Name: %s | Description: %s | Price: $%.2f | Quantity: %d\n", 
-	                product.getName(), product.getDescription(), product.getPrice(), quantity);
-	        }
-	        System.out.println("---------------------\n");
-	    }
+		Map<SalableProduct, Integer> products = cart.getProducts();
 
-	    return cart;  
+		if (products.isEmpty()) {
+			System.out.println("Your cart is empty.");
+		} else {
+			System.out.println("\n--- Cart Contents ---");
+			// Iterate over the map and print product details
+			for (Map.Entry<SalableProduct, Integer> entry : products.entrySet()) {
+				SalableProduct product = entry.getKey();
+				int quantity = entry.getValue();
+				System.out.printf("Name: %s | Description: %s | Price: $%.2f | Quantity: %d\n", product.getName(),
+						product.getDescription(), product.getPrice(), quantity);
+			}
+			System.out.println("---------------------\n");
+		}
+
+		return cart;
 	}
-	
+
 	/**
 	 * Adds a new product to the inventory.
 	 * 
@@ -166,7 +166,7 @@ public class StoreFront {
 		System.out.print("Your Choice: ");
 		choice = scnr.nextInt();
 
-		scnr.close();
+//		scnr.close();
 		return choice;
 	}
 
@@ -174,6 +174,7 @@ public class StoreFront {
 		StoreFront store = new StoreFront();
 		Scanner scnr = new Scanner(System.in);
 		int choice = 0;
+		int qty = 0;
 
 		// Add sample products to inventory
 		store.addProductToInventory(new SalableProduct("Axe", "Sharp and can swing", 1200.00, 10));
@@ -201,9 +202,13 @@ public class StoreFront {
 				System.out.println("4. Helmet");
 				System.out.println("5. Health Herb");
 				System.out.println("6. Med Kit");
+				System.out.print("Item you chose: ");
 				int itemChoice = scnr.nextInt();
 				if (itemChoice == 1) {
-					store.addToCart("Axe", 1);
+					System.out.println("How many do you want to add?");
+					System.out.print("Entered Quantity: ");
+					qty = scnr.nextInt();
+					store.addToCart("Axe", qty);
 				} else if (itemChoice == 2) {
 					store.addToCart("Sword", 1);
 				} else if (itemChoice == 3) {
