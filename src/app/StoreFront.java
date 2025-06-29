@@ -87,6 +87,7 @@ public class StoreFront {
 	public void addToCart(String productName, int qty) {
 		SalableProduct product = productInventory.getProductByName(productName);
 		if (product != null && product.getQuantity() >= qty) {
+			System.out.println("Product added to cart");
 			cart.addToCart(product, qty);
 		} else {
 			System.out.println("Product not available in desired quantity.");
@@ -220,11 +221,11 @@ public class StoreFront {
 					System.out.println("How many do you want to add?");
 					System.out.print("Entered Quantity: ");
 					qty = scnr.nextInt();
-					System.out.println(
-							"--------------------------------------------------------------------------------------------");
-					System.out.println(
-							"--------------------------------------------------------------------------------------------");
 					store.addToCart("Axe", qty);
+					System.out.println(
+							"--------------------------------------------------------------------------------------------");
+					System.out.println(
+							"--------------------------------------------------------------------------------------------");
 				} else if (itemChoice == 2) {
 					System.out.println("How many do you want to add?");
 					System.out.print("Entered Quantity: ");
@@ -247,29 +248,30 @@ public class StoreFront {
 					System.out.println("How many do you want to add?");
 					System.out.print("Entered Quantity: ");
 					qty = scnr.nextInt();
-					System.out.println(
-							"--------------------------------------------------------------------------------------------");
-					System.out.println(
-							"--------------------------------------------------------------------------------------------");
 					store.addToCart("Helmet", qty);
+
+					System.out.println(
+							"--------------------------------------------------------------------------------------------");
+					System.out.println(
+							"--------------------------------------------------------------------------------------------");
 				} else if (itemChoice == 5) {
 					System.out.println("How many do you want to add?");
 					System.out.print("Entered Quantity: ");
 					qty = scnr.nextInt();
-					System.out.println(
-							"--------------------------------------------------------------------------------------------");
-					System.out.println(
-							"--------------------------------------------------------------------------------------------");
 					store.addToCart("Health Herb", qty);
+					System.out.println(
+							"--------------------------------------------------------------------------------------------");
+					System.out.println(
+							"--------------------------------------------------------------------------------------------");
 				} else if (itemChoice == 6) {
 					System.out.println("How many do you want to add?");
 					System.out.print("Entered Quantity: ");
 					qty = scnr.nextInt();
-					System.out.println(
-							"--------------------------------------------------------------------------------------------");
-					System.out.println(
-							"--------------------------------------------------------------------------------------------");
 					store.addToCart("Med Kit", qty);
+					System.out.println(
+							"--------------------------------------------------------------------------------------------");
+					System.out.println(
+							"--------------------------------------------------------------------------------------------");
 				}
 				break;
 			case 3:
