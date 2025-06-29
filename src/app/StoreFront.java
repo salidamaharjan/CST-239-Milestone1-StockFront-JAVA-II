@@ -102,6 +102,9 @@ public class StoreFront {
 		}
 	}
 
+	/**
+	 * Represents the main interface and logic for the store front application.
+	 */
 	public void removeFromCart(String productName, int qty) {
 		SalableProduct product = productInventory.getProductByName(productName);
 		if (product != null && product.getQuantity() >= qty) {
@@ -178,6 +181,9 @@ public class StoreFront {
 				"--------------------------------------------------------------------------------------------");
 	}
 
+	 /**
+     * Displays a welcome message to the user when they enter the store front.
+     */
 	public void welcomeToStoreFront() {
 		System.out.println(
 				"-----------------------------------🛒STORE FRONT🛍️-----------------------------------------");
@@ -186,6 +192,12 @@ public class StoreFront {
 				"--------------------------------------------------------------------------------------------\n");
 	}
 
+	/**
+     * Asks the user to select an action from the main menu and returns the choice.
+     *
+     * @param scnr Scanner object used for input
+     * @return the user's menu choice
+     */
 	public static int askUser(Scanner scnr) {
 		int choice;
 
@@ -208,6 +220,13 @@ public class StoreFront {
 		return choice;
 	}
 
+	/**
+     * Main method to run the store front program. Handles the main interaction loop
+     * with the user, including viewing inventory, adding/removing products from the cart,
+     * and handling purchases.
+     *
+     * @param args Command line arguments (not used)
+     */
 	public static void main(String[] args) {
 		StoreFront store = new StoreFront();
 		Scanner scnr = new Scanner(System.in);
