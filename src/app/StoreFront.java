@@ -238,12 +238,12 @@ public class StoreFront {
 		int qty = 0;
 		String itemName = "";
 		// Add sample products to inventory
-		store.addProductToInventory(new SalableProduct("Axe", "Sharp and can swing", 1200.00, 10));
-		store.addProductToInventory(new SalableProduct("Sword", "Sharp and pointy", 800.00, 15));
-		store.addProductToInventory(new SalableProduct("Sheild", "Stops things", 1500, 30));
-		store.addProductToInventory(new SalableProduct("Helmet", "Save my head", 150.00, 20));
-		store.addProductToInventory(new SalableProduct("Health Herb", "Tastes bad but helps", 150.00, 25));
-		store.addProductToInventory(new SalableProduct("Med Kit", "Life saver", 150.00, 35));
+		store.addProductToInventory(new Weapon("Axe", "Sharp and can swing", 1200.00, 10));
+		store.addProductToInventory(new Weapon("Sword", "Sharp and pointy", 800.00, 15));
+		store.addProductToInventory(new Armor("Sheild", "Stops things", 1500, 30));
+		store.addProductToInventory(new Armor("Helmet", "Save my head", 150.00, 20));
+		store.addProductToInventory(new Health("Health Herb", "Tastes bad but helps", 150.00, 25));
+		store.addProductToInventory(new Health("Med Kit", "Life saver", 150.00, 35));
 
 		store.welcomeToStoreFront();
 
