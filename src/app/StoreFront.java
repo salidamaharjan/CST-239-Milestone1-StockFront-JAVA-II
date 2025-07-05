@@ -19,20 +19,20 @@ import java.util.Scanner;
  * 
  * @author Salida Maharjan
  * @version 11.0
- * @see Inventory
- * @see Cart
+ * @see InventoryManager
+ * @see ShoppingCart
  * @see SalableProduct
  */
 public class StoreFront {
-	private Inventory productInventory;
-	private Cart cart;
+	private InventoryManager productInventory;
+	private ShoppingCart cart;
 
 	/**
 	 * Constructs a new StoreFront with empty inventory and cart.
 	 */
 	public StoreFront() {
-		this.productInventory = new Inventory();
-		this.cart = new Cart();
+		this.productInventory = new InventoryManager();
+		this.cart = new ShoppingCart();
 	}
 
 	/**
@@ -40,7 +40,7 @@ public class StoreFront {
 	 * 
 	 * @return Inventory instance
 	 */
-	public Inventory getProductInventory() {
+	public InventoryManager getProductInventory() {
 		return this.productInventory;
 	}
 
@@ -49,8 +49,8 @@ public class StoreFront {
 	 * 
 	 * @return Cart instance
 	 */
-	public Cart viewCart() {
-		Map<SalableProduct, Integer> products = cart.getProducts();
+	public ShoppingCart viewCart() {
+		Map<SalableProduct, Integer> products = cart.getproductsInCart();
 
 		if (products.isEmpty()) {
 			System.out.println("Your cart is empty.");
@@ -75,7 +75,7 @@ public class StoreFront {
 	 * @param product The SalableProduct to add
 	 */
 	public void addProductToInventory(SalableProduct product) {
-		productInventory.addProduct(product);
+		productInventory.addSalableProduct(product);
 	}
 
 	/**
@@ -108,8 +108,8 @@ public class StoreFront {
 	public void removeFromCart(String productName, int qty) {
 	    SalableProduct product = productInventory.getProductByName(productName);
 	    // Check if the product exists in the cart
-	    if (product != null && cart.getProducts().containsKey(product)) {
-	        int currentQtyInCart = cart.getProducts().get(product);
+	    if (product != null && cart.getproductsInCart().containsKey(product)) {
+	        int currentQtyInCart = cart.getproductsInCart().get(product);
 
 	        // Check if the quantity to remove is valid
 	        if (qty <= currentQtyInCart) {
@@ -137,13 +137,12 @@ public class StoreFront {
 			System.out.printf("Your total is $%.2f. Proceeding with purchase...\n", totalPrice);
 
 			// Process purchase and update inventory
-			Map<SalableProduct, Integer> cartProducts = cart.getProducts();
+			Map<SalableProduct, Integer> cartProducts = cart.getproductsInCart();
 			for (Map.Entry<SalableProduct, Integer> entry : cartProducts.entrySet()) {
 				SalableProduct product = entry.getKey();
 				int qtyPurchased = entry.getValue();
 
-				// Update the inventory: Reduce stock based on the quantity purchased
-				productInventory.updateQuantity(product, product.getQuantity() - qtyPurchased);
+				productInventory.removeSalableProduct(product, product.getQuantity() - qtyPurchased);
 			}
 
 			// Clear the cart after purchase
@@ -158,7 +157,7 @@ public class StoreFront {
 	 * Cancels the current purchase and displays the saved cart contents.
 	 */
 	public void cancelPurchase() {
-		Map<SalableProduct, Integer> products = cart.getProducts();
+		Map<SalableProduct, Integer> products = cart.getproductsInCart();
 		if (products.isEmpty()) {
 			System.out.println("Cart is empty.");
 			return;
@@ -312,11 +311,11 @@ public class StoreFront {
 				break;
 			case 6:
 				// remove product from cart
-				Cart cart = store.viewCart();
-				if(cart.getProducts().isEmpty()) {
+				ShoppingCart cart = store.viewCart();
+				if(cart.getproductsInCart().isEmpty()) {
 					break;
 				}
-				Map<SalableProduct, Integer> products = cart.getProducts();
+				Map<SalableProduct, Integer> products = cart.getproductsInCart();
 				System.out.println("Which product do you want to remove?");
 				for (Map.Entry<SalableProduct, Integer> entry : products.entrySet()) {
 					SalableProduct product = entry.getKey();
