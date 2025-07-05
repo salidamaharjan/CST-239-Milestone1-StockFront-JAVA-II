@@ -10,7 +10,7 @@ public class InventoryManager implements Inventory {
 	private List<SalableProduct> storeInventory;
 
 	/**
-	 * Constructs an empty inventory.
+	 * Initialize the storeInventory with sample products
 	 */
 	public InventoryManager() {
 		this.storeInventory = new ArrayList<>();
@@ -55,6 +55,7 @@ public class InventoryManager implements Inventory {
 	 * @param name The name of the product to search for.
 	 * @return The matching SalableProduct, or null if not found.
 	 */
+	@Override
 	public SalableProduct getProductByName(String name) {
 		List<SalableProduct> storeInventory = this.storeInventory;
 		for (int i = 0; i < storeInventory.size(); i++) {

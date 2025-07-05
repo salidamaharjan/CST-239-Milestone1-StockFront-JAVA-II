@@ -1,5 +1,8 @@
 package app;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -24,23 +27,43 @@ import java.util.Scanner;
  * @see SalableProduct
  */
 public class StoreFront {
-	private InventoryManager productInventory;
-	private ShoppingCart cart;
+	private Inventory productInventory;
+	private Cart cart;
 
 	/**
-	 * Constructs a new StoreFront with empty inventory and cart.
+	 * Constructs a new StoreFront with inventory in stock and cart.
 	 */
 	public StoreFront() {
 		this.productInventory = new InventoryManager();
 		this.cart = new ShoppingCart();
+		initializeSampleProducts();
 	}
+
+	 /**
+     * Initializes sample products in the inventory.
+     */
+    private void initializeSampleProducts() {
+    	List<Weapon> weapons = new ArrayList<>();
+    	weapons.add(new Weapon("Sword", "Sharp and can swing", 1200.00, 10));
+        weapons.add(new Weapon("Axe", "Sharp and pointy", 800.00, 15));
+        Collections.sort(weapons);
+        for(int i = 0; i < weapons.size(); i++) {
+        	productInventory.addSalableProduct(weapons.get(i));
+        }
+        
+        productInventory.addSalableProduct(new Armor("Sheild", "Stops things", 1500, 30));
+        productInventory.addSalableProduct(new Armor("Helmet", "Save my head", 150.00, 20));
+        productInventory.addSalableProduct(new Health("Health Herb", "Tastes bad but helps", 150.00, 25));
+        productInventory.addSalableProduct(new Health("Med Kit", "Life saver", 150.00, 35));
+        
+    }
 
 	/**
 	 * Gets the product inventory.
 	 * 
 	 * @return Inventory instance
 	 */
-	public InventoryManager getProductInventory() {
+	public Inventory getProductInventory() {
 		return this.productInventory;
 	}
 
@@ -49,7 +72,7 @@ public class StoreFront {
 	 * 
 	 * @return Cart instance
 	 */
-	public ShoppingCart viewCart() {
+	public Cart viewCart() {
 		Map<SalableProduct, Integer> products = cart.getproductsInCart();
 
 		if (products.isEmpty()) {
@@ -106,25 +129,28 @@ public class StoreFront {
 	 * Represents the main interface and logic for the store front application.
 	 */
 	public void removeFromCart(String productName, int qty) {
-	    SalableProduct product = productInventory.getProductByName(productName);
-	    // Check if the product exists in the cart
-	    if (product != null && cart.getproductsInCart().containsKey(product)) {
-	        int currentQtyInCart = cart.getproductsInCart().get(product);
+		SalableProduct product = productInventory.getProductByName(productName);
+		// Check if the product exists in the cart
+		if (product != null && cart.getproductsInCart().containsKey(product)) {
+			int currentQtyInCart = cart.getproductsInCart().get(product);
 
-	        // Check if the quantity to remove is valid
-	        if (qty <= currentQtyInCart) {
-	            System.out.println("Product removed from cart");
-	            cart.removeFromCart(product, qty);
-	            System.out.println("--------------------------------------------------------------------------------------------");
-	        } else {
-	            System.out.println("Cannot remove more than the quantity in your cart.");
-	            System.out.println("You currently have " + currentQtyInCart + " of this product in your cart.");
-	            System.out.println("--------------------------------------------------------------------------------------------");
-	        }
-	    } else {
-	        System.out.println("Product not found in cart.");
-	        System.out.println("--------------------------------------------------------------------------------------------");
-	    }
+			// Check if the quantity to remove is valid
+			if (qty <= currentQtyInCart) {
+				System.out.println("Product removed from cart");
+				cart.removeFromCart(product, qty);
+				System.out.println(
+						"--------------------------------------------------------------------------------------------");
+			} else {
+				System.out.println("Cannot remove more than the quantity in your cart.");
+				System.out.println("You currently have " + currentQtyInCart + " of this product in your cart.");
+				System.out.println(
+						"--------------------------------------------------------------------------------------------");
+			}
+		} else {
+			System.out.println("Product not found in cart.");
+			System.out.println(
+					"--------------------------------------------------------------------------------------------");
+		}
 	}
 
 	/**
@@ -184,9 +210,9 @@ public class StoreFront {
 				"--------------------------------------------------------------------------------------------");
 	}
 
-	 /**
-     * Displays a welcome message to the user when they enter the store front.
-     */
+	/**
+	 * Displays a welcome message to the user when they enter the store front.
+	 */
 	public void welcomeToStoreFront() {
 		System.out.println(
 				"-----------------------------------🛒STORE FRONT🛍️-----------------------------------------");
@@ -196,11 +222,11 @@ public class StoreFront {
 	}
 
 	/**
-     * Asks the user to select an action from the main menu and returns the choice.
-     *
-     * @param scnr Scanner object used for input
-     * @return the user's menu choice
-     */
+	 * Asks the user to select an action from the main menu and returns the choice.
+	 *
+	 * @param scnr Scanner object used for input
+	 * @return the user's menu choice
+	 */
 	public static int askUser(Scanner scnr) {
 		int choice;
 
@@ -224,25 +250,18 @@ public class StoreFront {
 	}
 
 	/**
-     * Main method to run the store front program. Handles the main interaction loop
-     * with the user, including viewing inventory, adding/removing products from the cart,
-     * and handling purchases.
-     *
-     * @param args Command line arguments (not used)
-     */
+	 * Main method to run the store front program. Handles the main interaction loop
+	 * with the user, including viewing inventory, adding/removing products from the
+	 * cart, and handling purchases.
+	 *
+	 * @param args Command line arguments (not used)
+	 */
 	public static void main(String[] args) {
 		StoreFront store = new StoreFront();
 		Scanner scnr = new Scanner(System.in);
 		int choice = 0;
 		int qty = 0;
 		String itemName = "";
-		// Add sample products to inventory
-		store.addProductToInventory(new Weapon("Axe", "Sharp and can swing", 1200.00, 10));
-		store.addProductToInventory(new Weapon("Sword", "Sharp and pointy", 800.00, 15));
-		store.addProductToInventory(new Armor("Sheild", "Stops things", 1500, 30));
-		store.addProductToInventory(new Armor("Helmet", "Save my head", 150.00, 20));
-		store.addProductToInventory(new Health("Health Herb", "Tastes bad but helps", 150.00, 25));
-		store.addProductToInventory(new Health("Med Kit", "Life saver", 150.00, 35));
 
 		store.welcomeToStoreFront();
 
@@ -311,8 +330,8 @@ public class StoreFront {
 				break;
 			case 6:
 				// remove product from cart
-				ShoppingCart cart = store.viewCart();
-				if(cart.getproductsInCart().isEmpty()) {
+				Cart cart = store.viewCart();
+				if (cart.getproductsInCart().isEmpty()) {
 					break;
 				}
 				Map<SalableProduct, Integer> products = cart.getproductsInCart();

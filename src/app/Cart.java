@@ -8,5 +8,6 @@ public interface Cart {
 	void removeFromCart(SalableProduct product, int qty);
 	Map<SalableProduct, Integer> getproductsInCart();
 	void clearCart();
+	double getTotalPrice();
 	
 }

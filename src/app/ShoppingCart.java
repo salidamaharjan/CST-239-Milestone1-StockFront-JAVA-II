@@ -37,7 +37,7 @@ public class ShoppingCart implements Cart {
 	 * @param product The product to remove.
 	 * @param qty     The quantity to remove.
 	 */
-		@Override
+	@Override
 	public void removeFromCart(SalableProduct product, int qty) {
 		if (productsInCart.containsKey(product)) {
 			int currentQty = productsInCart.get(product);
@@ -54,7 +54,7 @@ public class ShoppingCart implements Cart {
 	 * 
 	 * @return A map of SalableProduct to quantity.
 	 */
-		@Override
+	@Override
 	public Map<SalableProduct, Integer> getproductsInCart() {
 		return this.productsInCart;
 	}
@@ -62,7 +62,7 @@ public class ShoppingCart implements Cart {
 	/**
 	 * Clears all productsInCart from the cart.
 	 */
-			@Override
+	@Override
 	public void clearCart() {
 		productsInCart.clear();
 	}
@@ -73,6 +73,7 @@ public class ShoppingCart implements Cart {
 	 * 
 	 * @return The total price of the cart.
 	 */
+	@Override
 	public double getTotalPrice() {
 		double totalPrice = 0.0;
 		for (Map.Entry<SalableProduct, Integer> entry : productsInCart.entrySet()) {
