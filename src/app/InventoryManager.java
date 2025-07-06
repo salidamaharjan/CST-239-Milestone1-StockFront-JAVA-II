@@ -16,6 +16,13 @@ public class InventoryManager implements Inventory {
 		this.storeInventory = new ArrayList<>();
 	}
 
+	/**
+	 * Removes a specified quantity of a product from the inventory. If the product
+	 * exists in the inventory, its quantity will be updated to the new quantity.
+	 * 
+	 * @param product     The {@code SalableProduct} to remove from the inventory.
+	 * @param newQuantity The new quantity of the product to be set.
+	 */
 	@Override
 	public void removeSalableProduct(SalableProduct product, int newQuantity) {
 		if (product == null) {
