@@ -55,7 +55,7 @@ public class ShoppingCart implements Cart {
 	 * @return A map of SalableProduct to quantity.
 	 */
 	@Override
-	public Map<SalableProduct, Integer> getproductsInCart() {
+	public Map<SalableProduct, Integer> getProductsInCart() {
 		return this.productsInCart;
 	}
 

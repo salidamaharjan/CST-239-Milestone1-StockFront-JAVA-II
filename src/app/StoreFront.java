@@ -73,7 +73,7 @@ public class StoreFront {
 	 * @return Cart instance
 	 */
 	public Cart viewCart() {
-		Map<SalableProduct, Integer> products = cart.getproductsInCart();
+		Map<SalableProduct, Integer> products = cart.getProductsInCart();
 
 		if (products.isEmpty()) {
 			System.out.println("Your cart is empty.");
@@ -131,8 +131,8 @@ public class StoreFront {
 	public void removeFromCart(String productName, int qty) {
 		SalableProduct product = productInventory.getProductByName(productName);
 		// Check if the product exists in the cart
-		if (product != null && cart.getproductsInCart().containsKey(product)) {
-			int currentQtyInCart = cart.getproductsInCart().get(product);
+		if (product != null && cart.getProductsInCart().containsKey(product)) {
+			int currentQtyInCart = cart.getProductsInCart().get(product);
 
 			// Check if the quantity to remove is valid
 			if (qty <= currentQtyInCart) {
@@ -163,7 +163,7 @@ public class StoreFront {
 			System.out.printf("Your total is $%.2f. Proceeding with purchase...\n", totalPrice);
 
 			// Process purchase and update inventory
-			Map<SalableProduct, Integer> cartProducts = cart.getproductsInCart();
+			Map<SalableProduct, Integer> cartProducts = cart.getProductsInCart();
 			for (Map.Entry<SalableProduct, Integer> entry : cartProducts.entrySet()) {
 				SalableProduct product = entry.getKey();
 				int qtyPurchased = entry.getValue();
@@ -183,7 +183,7 @@ public class StoreFront {
 	 * Cancels the current purchase and displays the saved cart contents.
 	 */
 	public void cancelPurchase() {
-		Map<SalableProduct, Integer> products = cart.getproductsInCart();
+		Map<SalableProduct, Integer> products = cart.getProductsInCart();
 		if (products.isEmpty()) {
 			System.out.println("Cart is empty.");
 			return;
@@ -331,10 +331,10 @@ public class StoreFront {
 			case 6:
 				// remove product from cart
 				Cart cart = store.viewCart();
-				if (cart.getproductsInCart().isEmpty()) {
+				if (cart.getProductsInCart().isEmpty()) {
 					break;
 				}
-				Map<SalableProduct, Integer> products = cart.getproductsInCart();
+				Map<SalableProduct, Integer> products = cart.getProductsInCart();
 				System.out.println("Which product do you want to remove?");
 				for (Map.Entry<SalableProduct, Integer> entry : products.entrySet()) {
 					SalableProduct product = entry.getKey();

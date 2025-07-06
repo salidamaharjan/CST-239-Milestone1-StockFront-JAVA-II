@@ -6,7 +6,7 @@ public interface Cart {
 
 	void addToCart(SalableProduct product, int qty);
 	void removeFromCart(SalableProduct product, int qty);
-	Map<SalableProduct, Integer> getproductsInCart();
+	Map<SalableProduct, Integer> getProductsInCart();
 	void clearCart();
 	double getTotalPrice();
 	
