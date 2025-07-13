@@ -2,14 +2,18 @@ package app;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Represents a store front where users can interact with the inventory, add
@@ -38,12 +42,55 @@ public class StoreFront {
 	/**
 	 * Constructs a new StoreFront with inventory in stock and cart.
 	 */
-	public StoreFront() {
+	public StoreFront() throws IOException {
 		this.productInventory = new InventoryManager();
 		this.cart = new ShoppingCart();
 		initializeSampleProducts();
 	}
 
+	private static boolean fileCleared = false;
+	
+	/**
+	 * Saves a SalableProduct object to a JSON file.
+	 * Clears the file contents only once if the file exists and is not empty.
+	 *
+	 * @param inputFile The path of the file to write to.
+	 * @param product   The SalableProduct to save.
+	 * @param append    Indicates whether to append to the file (not currently used due to forced appending).
+	 */
+	private static void saveToFile(String inputFile, SalableProduct product, boolean append) {
+		PrintWriter pw;
+		try {
+			File file = new File(inputFile);
+			
+			// Clear the file once if it's not empty and not already cleared
+	        if (!fileCleared && file.exists() && file.length() > 0) {
+	            new PrintWriter(file).close(); // Clear file contents
+	            fileCleared = true;
+	        }
+	        
+			FileWriter fw = new FileWriter(file, true);
+			pw = new PrintWriter(fw);
+
+			ObjectMapper objectMapper = new ObjectMapper();
+			String json = objectMapper.writeValueAsString(product);
+
+			pw.println(json);
+			pw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Copies product data from the input file to the output file.
+	 * Converts each line from pipe-delimited format to comma-separated format.
+	 * Stores full product info (including type) in a List, and writes a subset to the output file.
+	 *
+	 * @param inputFile  The input file path containing product data in pipe-delimited format.
+	 * @param outputFile The output file path to write formatted product data.
+	 * @return A list of formatted product strings, each including name, description, price, quantity, and type.
+	 */
 	private static List<String> copyFile(String inputFile, String outputFile) {
 		BufferedReader in = null;
 		BufferedWriter out = null;
@@ -80,9 +127,14 @@ public class StoreFront {
 	}
 
 	/**
-	 * Initializes sample products in the inventory.
+	 * Initializes the inventory with sample products by reading from "Inventory.txt"
+	 * and saving to "OutFile.txt" and "OutFile.json".
+	 * Converts each line from the input into a SalableProduct of the correct subclass
+	 * (Weapon, Armor, or Health) and adds it to the product inventory.
+	 *
+	 * @throws IOException If an I/O error occurs while processing files.
 	 */
-	private void initializeSampleProducts() {
+	private void initializeSampleProducts() throws IOException {
 		List<String> result = copyFile("Inventory.txt", "OutFile.txt");
 
 		for (int i = 0; i < result.size(); i++) {
@@ -107,6 +159,7 @@ public class StoreFront {
 				productInventory.addSalableProduct(product);
 				break;
 			}
+			saveToFile("OutFile.json", product, true);
 		}
 	}
 
@@ -309,7 +362,7 @@ public class StoreFront {
 	 *
 	 * @param args Command line arguments (not used)
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		StoreFront store = new StoreFront();
 		Scanner scnr = new Scanner(System.in);
 		int choice = 0;

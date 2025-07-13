@@ -10,6 +10,13 @@ public class SalableProduct {
 	private double price;
 	private int quantity;
 
+	public SalableProduct() {
+		name = "";
+		description = "";
+		price = 0;
+		quantity = 0;
+	}
+
 	/**
 	 * Constructs a new SalableProduct with the given properties.
 	 *
@@ -96,5 +103,5 @@ public class SalableProduct {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	
+
 }
