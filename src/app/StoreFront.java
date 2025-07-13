@@ -49,26 +49,27 @@ public class StoreFront {
 	}
 
 	private static boolean fileCleared = false;
-	
+
 	/**
-	 * Saves a SalableProduct object to a JSON file.
-	 * Clears the file contents only once if the file exists and is not empty.
+	 * Saves a SalableProduct object to a JSON file. Clears the file contents only
+	 * once if the file exists and is not empty.
 	 *
 	 * @param inputFile The path of the file to write to.
 	 * @param product   The SalableProduct to save.
-	 * @param append    Indicates whether to append to the file (not currently used due to forced appending).
+	 * @param append    Indicates whether to append to the file (not currently used
+	 *                  due to forced appending).
 	 */
 	private static void saveToFile(String inputFile, SalableProduct product, boolean append) {
 		PrintWriter pw;
 		try {
 			File file = new File(inputFile);
-			
+
 			// Clear the file once if it's not empty and not already cleared
-	        if (!fileCleared && file.exists() && file.length() > 0) {
-	            new PrintWriter(file).close(); // Clear file contents
-	            fileCleared = true;
-	        }
-	        
+			if (!fileCleared && file.exists() && file.length() > 0) {
+				new PrintWriter(file).close(); // Clear file contents
+				fileCleared = true;
+			}
+
 			FileWriter fw = new FileWriter(file, true);
 			pw = new PrintWriter(fw);
 
@@ -83,13 +84,16 @@ public class StoreFront {
 	}
 
 	/**
-	 * Copies product data from the input file to the output file.
-	 * Converts each line from pipe-delimited format to comma-separated format.
-	 * Stores full product info (including type) in a List, and writes a subset to the output file.
+	 * Copies product data from the input file to the output file. Converts each
+	 * line from pipe-delimited format to comma-separated format. Stores full
+	 * product info (including type) in a List, and writes a subset to the output
+	 * file.
 	 *
-	 * @param inputFile  The input file path containing product data in pipe-delimited format.
+	 * @param inputFile  The input file path containing product data in
+	 *                   pipe-delimited format.
 	 * @param outputFile The output file path to write formatted product data.
-	 * @return A list of formatted product strings, each including name, description, price, quantity, and type.
+	 * @return A list of formatted product strings, each including name,
+	 *         description, price, quantity, and type.
 	 */
 	private static List<String> copyFile(String inputFile, String outputFile) {
 		BufferedReader in = null;
@@ -127,10 +131,10 @@ public class StoreFront {
 	}
 
 	/**
-	 * Initializes the inventory with sample products by reading from "Inventory.txt"
-	 * and saving to "OutFile.txt" and "OutFile.json".
-	 * Converts each line from the input into a SalableProduct of the correct subclass
-	 * (Weapon, Armor, or Health) and adds it to the product inventory.
+	 * Initializes the inventory with sample products by reading from
+	 * "Inventory.txt" and saving to "OutFile.txt" and "OutFile.json". Converts each
+	 * line from the input into a SalableProduct of the correct subclass (Weapon,
+	 * Armor, or Health) and adds it to the product inventory.
 	 *
 	 * @throws IOException If an I/O error occurs while processing files.
 	 */
