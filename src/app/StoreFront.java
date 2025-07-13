@@ -1,5 +1,7 @@
 package app;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -44,16 +46,17 @@ public class StoreFront {
 	}
 
 	private static int copyFile(String inputFile, String outputFile) {
-		FileReader in = null;
-		FileWriter out = null;
+		BufferedReader in = null;
+		BufferedWriter out = null;
 		try {
-			in = new FileReader(inputFile);
-			out = new FileWriter(outputFile);
+			in = new BufferedReader(new FileReader(inputFile));
+			out = new BufferedWriter(new FileWriter(outputFile));
 
-			int c;
+			String line;
 
-			while ((c = in.read()) != -1) {
-				out.write(c);
+			while ((line = in.readLine()) != null) {
+				String[] tokens = line.split("\\|");
+				out.write(String.format("%s, %s, %s, %s\n", tokens[0], tokens[1], tokens[2], tokens[3]));
 			}
 			return 0;
 		} catch (FileNotFoundException e) {
