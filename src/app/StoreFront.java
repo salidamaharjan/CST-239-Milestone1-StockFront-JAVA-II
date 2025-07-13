@@ -1,5 +1,9 @@
 package app;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -39,24 +43,71 @@ public class StoreFront {
 		initializeSampleProducts();
 	}
 
-	 /**
-     * Initializes sample products in the inventory.
-     */
-    private void initializeSampleProducts() {
-    	List<Weapon> weapons = new ArrayList<>();
-    	weapons.add(new Weapon("Sword", "Sharp and can swing", 1200.00, 10));
-        weapons.add(new Weapon("Axe", "Sharp and pointy", 800.00, 15));
-        Collections.sort(weapons);
-        for(int i = 0; i < weapons.size(); i++) {
-        	productInventory.addSalableProduct(weapons.get(i));
-        }
-        
-        productInventory.addSalableProduct(new Armor("Sheild", "Stops things", 1500, 30));
-        productInventory.addSalableProduct(new Armor("Helmet", "Save my head", 150.00, 20));
-        productInventory.addSalableProduct(new Health("Health Herb", "Tastes bad but helps", 150.00, 25));
-        productInventory.addSalableProduct(new Health("Med Kit", "Life saver", 150.00, 35));
-        
-    }
+	private static int copyFile(String inputFile, String outputFile) {
+		FileReader in = null;
+		FileWriter out = null;
+		try {
+			in = new FileReader(inputFile);
+			out = new FileWriter(outputFile);
+
+			int c;
+
+			while ((c = in.read()) != -1) {
+				out.write(c);
+			}
+			return 0;
+		} catch (FileNotFoundException e) {
+			System.out.println("File not found: " + e.getMessage());
+			return -1;
+		} catch (IOException e) {
+			System.out.println("I/O Error: " + e.getMessage());
+			return -2;
+		} finally {
+			try {
+				if (in != null)
+					in.close();
+				if (in != null)
+					out.close();
+			} catch (IOException e) {
+				System.out.println("Error closing file streams: " + e.getMessage());
+			}
+		}
+	}
+
+	/**
+	 * Initializes sample products in the inventory.
+	 */
+	private void initializeSampleProducts() {
+		List<Weapon> weapons = new ArrayList<>();
+		int result = copyFile("Inventory.txt", "OutFile.txt");
+		switch (result) {
+		case 0:
+			System.out.println("File copied successfuly.");
+			break;
+		case -1:
+			System.out.println("Error: The input file was not found.");
+			break;
+		case -2:
+			System.out.println("Error: An I/O error occured.");
+			break;
+		default:
+			System.out.println("Unknown error occured.");
+			break;
+		}
+
+		weapons.add(new Weapon("Sword", "Sharp and can swing", 1200.00, 10));
+		weapons.add(new Weapon("Axe", "Sharp and pointy", 800.00, 15));
+		Collections.sort(weapons);
+		for (int i = 0; i < weapons.size(); i++) {
+			productInventory.addSalableProduct(weapons.get(i));
+		}
+
+		productInventory.addSalableProduct(new Armor("Sheild", "Stops things", 1500, 30));
+		productInventory.addSalableProduct(new Armor("Helmet", "Save my head", 150.00, 20));
+		productInventory.addSalableProduct(new Health("Health Herb", "Tastes bad but helps", 150.00, 25));
+		productInventory.addSalableProduct(new Health("Med Kit", "Life saver", 150.00, 35));
+
+	}
 
 	/**
 	 * Gets the product inventory.
