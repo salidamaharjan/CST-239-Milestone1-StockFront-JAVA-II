@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Represents an inventory of SalableProducts in the store.
  */
-public class InventoryManager implements Inventory {
+public class InventoryManager {
 	private List<SalableProduct> storeInventory;
 
 	/**
@@ -23,7 +23,6 @@ public class InventoryManager implements Inventory {
 	 * @param product     The {@code SalableProduct} to remove from the inventory.
 	 * @param newQuantity The new quantity of the product to be set.
 	 */
-	@Override
 	public void removeSalableProduct(SalableProduct product, int newQuantity) {
 		if (product == null) {
 			System.out.println("Product not found");
@@ -37,7 +36,6 @@ public class InventoryManager implements Inventory {
 	 * 
 	 * @param product The SalableProduct to add.
 	 */
-	@Override
 	public void addSalableProduct(SalableProduct product) {
 		if (product != null) {
 			this.storeInventory.add(product);
@@ -51,7 +49,6 @@ public class InventoryManager implements Inventory {
 	 * 
 	 * @return A list of SalableProduct instances.
 	 */
-	@Override
 	public List<SalableProduct> getAllProduct() {
 		return this.storeInventory;
 	}
@@ -62,7 +59,6 @@ public class InventoryManager implements Inventory {
 	 * @param name The name of the product to search for.
 	 * @return The matching SalableProduct, or null if not found.
 	 */
-	@Override
 	public SalableProduct getProductByName(String name) {
 		List<SalableProduct> storeInventory = this.storeInventory;
 		for (int i = 0; i < storeInventory.size(); i++) {

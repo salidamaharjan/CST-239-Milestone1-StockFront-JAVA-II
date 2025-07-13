@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * Represents a shopping cart that holds SalableProducts and their quantities.
  */
-public class ShoppingCart implements Cart {
+public class ShoppingCart {
 
 	private Map<SalableProduct, Integer> productsInCart;
 
@@ -24,7 +24,6 @@ public class ShoppingCart implements Cart {
 	 * @param product The product to add.
 	 * @param qty     The quantity to add.
 	 */
-	@Override
 	public void addToCart(SalableProduct product, int qty) {
 		productsInCart.put(product, productsInCart.getOrDefault(product, 0) + qty);
 	}
@@ -37,7 +36,6 @@ public class ShoppingCart implements Cart {
 	 * @param product The product to remove.
 	 * @param qty     The quantity to remove.
 	 */
-	@Override
 	public void removeFromCart(SalableProduct product, int qty) {
 		if (productsInCart.containsKey(product)) {
 			int currentQty = productsInCart.get(product);
@@ -54,7 +52,6 @@ public class ShoppingCart implements Cart {
 	 * 
 	 * @return A map of SalableProduct to quantity.
 	 */
-	@Override
 	public Map<SalableProduct, Integer> getProductsInCart() {
 		return this.productsInCart;
 	}
@@ -62,7 +59,6 @@ public class ShoppingCart implements Cart {
 	/**
 	 * Clears all productsInCart from the cart.
 	 */
-	@Override
 	public void clearCart() {
 		productsInCart.clear();
 	}
@@ -73,7 +69,6 @@ public class ShoppingCart implements Cart {
 	 * 
 	 * @return The total price of the cart.
 	 */
-	@Override
 	public double getTotalPrice() {
 		double totalPrice = 0.0;
 		for (Map.Entry<SalableProduct, Integer> entry : productsInCart.entrySet()) {

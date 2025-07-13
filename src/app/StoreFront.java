@@ -27,8 +27,8 @@ import java.util.Scanner;
  * @see SalableProduct
  */
 public class StoreFront {
-	private Inventory productInventory;
-	private Cart cart;
+	private InventoryManager productInventory;
+	private ShoppingCart cart;
 
 	/**
 	 * Constructs a new StoreFront with inventory in stock and cart.
@@ -63,7 +63,7 @@ public class StoreFront {
 	 * 
 	 * @return Inventory instance
 	 */
-	public Inventory getProductInventory() {
+	public InventoryManager getProductInventory() {
 		return this.productInventory;
 	}
 
@@ -72,7 +72,7 @@ public class StoreFront {
 	 * 
 	 * @return Cart instance
 	 */
-	public Cart viewCart() {
+	public ShoppingCart viewCart() {
 		Map<SalableProduct, Integer> products = cart.getProductsInCart();
 
 		if (products.isEmpty()) {
@@ -330,7 +330,7 @@ public class StoreFront {
 				break;
 			case 6:
 				// remove product from cart
-				Cart cart = store.viewCart();
+				ShoppingCart cart = store.viewCart();
 				if (cart.getProductsInCart().isEmpty()) {
 					break;
 				}
