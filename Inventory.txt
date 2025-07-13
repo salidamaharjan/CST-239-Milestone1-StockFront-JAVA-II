@@ -1,6 +1,6 @@
-Sword|Sharp and can swing|1200.00|10
-Axe|Sharp and pointy|800.00|15
-Sheild|Stops things|1500|30
-Helmet|Save my head|150.00|20
-Health Herb|Tastes bad but helps|150.00|25
-Med Kit|Life saver|150.00|35
+Sword|Sharp and can swing|1200.00|10|Weapon
+Axe|Sharp and pointy|800.00|15|Weapon
+Sheild|Stops things|1500|30|Armor
+Helmet|Save my head|150.00|20|Armor
+Health Herb|Tastes bad but helps|150.00|25|Health
+Med Kit|Life saver|150.00|35|Health

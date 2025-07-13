@@ -7,7 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
+//import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -45,9 +45,10 @@ public class StoreFront {
 		initializeSampleProducts();
 	}
 
-	private static int copyFile(String inputFile, String outputFile) {
+	private static List<String> copyFile(String inputFile, String outputFile) {
 		BufferedReader in = null;
 		BufferedWriter out = null;
+		List<String> products = new ArrayList<>();
 		try {
 			in = new BufferedReader(new FileReader(inputFile));
 			out = new BufferedWriter(new FileWriter(outputFile));
@@ -56,15 +57,17 @@ public class StoreFront {
 
 			while ((line = in.readLine()) != null) {
 				String[] tokens = line.split("\\|");
+				products.add(
+						String.format("%s, %s, %s, %s, %s\n", tokens[0], tokens[1], tokens[2], tokens[3], tokens[4]));
 				out.write(String.format("%s, %s, %s, %s\n", tokens[0], tokens[1], tokens[2], tokens[3]));
 			}
-			return 0;
+			return products;
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found: " + e.getMessage());
-			return -1;
+			return products;
 		} catch (IOException e) {
 			System.out.println("I/O Error: " + e.getMessage());
-			return -2;
+			return products;
 		} finally {
 			try {
 				if (in != null)
@@ -81,35 +84,31 @@ public class StoreFront {
 	 * Initializes sample products in the inventory.
 	 */
 	private void initializeSampleProducts() {
-		List<Weapon> weapons = new ArrayList<>();
-		int result = copyFile("Inventory.txt", "OutFile.txt");
-		switch (result) {
-		case 0:
-			System.out.println("File copied successfuly.");
-			break;
-		case -1:
-			System.out.println("Error: The input file was not found.");
-			break;
-		case -2:
-			System.out.println("Error: An I/O error occured.");
-			break;
-		default:
-			System.out.println("Unknown error occured.");
-			break;
+		List<String> result = copyFile("Inventory.txt", "OutFile.txt");
+
+		for (int i = 0; i < result.size(); i++) {
+			String[] productInfo = result.get(i).split(", ");
+			String name = productInfo[0].trim();
+			String description = productInfo[1].trim();
+			double price = Double.parseDouble(productInfo[2].trim());
+			int quantity = Integer.parseInt(productInfo[3].trim());
+			SalableProduct product = new SalableProduct(name, description, price, quantity);
+			String type = productInfo[4].trim();
+			switch (type) {
+			case "Weapon":
+				productInventory.addSalableProduct(new Weapon(name, description, price, quantity));
+				break;
+			case "Armor":
+				productInventory.addSalableProduct(new Armor(name, description, price, quantity));
+				break;
+			case "Health":
+				productInventory.addSalableProduct(new Health(name, description, price, quantity));
+				break;
+			default:
+				productInventory.addSalableProduct(product);
+				break;
+			}
 		}
-
-		weapons.add(new Weapon("Sword", "Sharp and can swing", 1200.00, 10));
-		weapons.add(new Weapon("Axe", "Sharp and pointy", 800.00, 15));
-		Collections.sort(weapons);
-		for (int i = 0; i < weapons.size(); i++) {
-			productInventory.addSalableProduct(weapons.get(i));
-		}
-
-		productInventory.addSalableProduct(new Armor("Sheild", "Stops things", 1500, 30));
-		productInventory.addSalableProduct(new Armor("Helmet", "Save my head", 150.00, 20));
-		productInventory.addSalableProduct(new Health("Health Herb", "Tastes bad but helps", 150.00, 25));
-		productInventory.addSalableProduct(new Health("Med Kit", "Life saver", 150.00, 35));
-
 	}
 
 	/**
@@ -163,6 +162,7 @@ public class StoreFront {
 	 */
 	public void addToCart(String productName, int qty) {
 		SalableProduct product = productInventory.getProductByName(productName);
+
 		if (product != null && product.getQuantity() >= qty) {
 			System.out.println("Product added to cart");
 			cart.addToCart(product, qty);
@@ -331,8 +331,8 @@ public class StoreFront {
 			case 2:
 				// Add product to cart
 				System.out.println("Which item do you want to add?");
-				System.out.println("1. Axe");
-				System.out.println("2. Sword");
+				System.out.println("1. Sword");
+				System.out.println("2. Axe");
 				System.out.println("3. Sheild");
 				System.out.println("4. Helmet");
 				System.out.println("5. Health Herb");
@@ -343,12 +343,12 @@ public class StoreFront {
 					System.out.println("How many do you want to add?");
 					System.out.print("Entered Quantity: ");
 					qty = scnr.nextInt();
-					store.addToCart("Axe", qty);
+					store.addToCart("Sword", qty);
 				} else if (itemChoice == 2) {
 					System.out.println("How many do you want to add?");
 					System.out.print("Entered Quantity: ");
 					qty = scnr.nextInt();
-					store.addToCart("Sword", qty);
+					store.addToCart("Axe", qty);
 				} else if (itemChoice == 3) {
 					System.out.println("How many do you want to add?");
 					System.out.print("Entered Quantity: ");
