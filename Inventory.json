@@ -1,0 +1,6 @@
+[{"name":"Sword","description":"Sharp and can swing","price":1200.0,"quantity":20},
+{"name":"Axe","description":"Sharp and pointy","price":800.0,"quantity":15},
+{"name":"Sheild","description":"Stops things","price":1500.0,"quantity":30},
+{"name":"Helmet","description":"Save my head","price":150.0,"quantity":20},
+{"name":"Health Herb","description":"Tastes bad but helps","price":150.0,"quantity":25},
+{"name":"Med Kit","description":"Life saver","price":150.0,"quantity":35}]

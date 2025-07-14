@@ -1,34 +1,16 @@
 package app;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.io.File;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-/**
- * Represents a store front where users can interact with the inventory, add
- * products to the shopping cart, and make purchases.
- * <p>
- * The StoreFront class handles all operations related to viewing and managing
- * the inventory, managing the shopping cart, and processing purchases. It
- * interacts with other components like Inventory and Cart classes.
- * </p>
- *
- * <p>
- * This class provides a user-interactive interface through the console for a
- * simulated e-commerce experience.
- * </p>
- * 
+/*
+ * The StoreFront class represents a storefront in a retail system, where customers can view and purchase products.
+ * It manages the inventory of salable products and a shopping cart for users to add items to their cart.
+ * The class initializes the product inventory, either from a JSON file or with default products if the file is missing.
  * @author Salida Maharjan
  * @version 11.0
  * @see InventoryManager
@@ -40,130 +22,38 @@ public class StoreFront {
 	private ShoppingCart cart;
 
 	/**
-	 * Constructs a new StoreFront with inventory in stock and cart.
+	 * Constructs a new StoreFront instance. Initializes the product inventory with
+	 * products from a JSON file or default products if the file cannot be read.
 	 */
-	public StoreFront() throws IOException {
+	public StoreFront() {
 		this.productInventory = new InventoryManager();
 		this.cart = new ShoppingCart();
 		initializeSampleProducts();
 	}
 
-	private static boolean fileCleared = false;
-
 	/**
-	 * Saves a SalableProduct object to a JSON file. Clears the file contents only
-	 * once if the file exists and is not empty.
-	 *
-	 * @param inputFile The path of the file to write to.
-	 * @param product   The SalableProduct to save.
-	 * @param append    Indicates whether to append to the file (not currently used
-	 *                  due to forced appending).
+	 * Initializes sample products in the inventory. This method attempts to read a
+	 * JSON file to populate the inventory. If reading the file fails (e.g., the
+	 * file doesn't exist or is malformed), it adds default products to the
+	 * inventory.
 	 */
-	private static void saveToFile(String inputFile, SalableProduct product, boolean append) {
-		PrintWriter pw;
+	private void initializeSampleProducts() {
 		try {
-			File file = new File(inputFile);
-
-			// Clear the file once if it's not empty and not already cleared
-			if (!fileCleared && file.exists() && file.length() > 0) {
-				new PrintWriter(file).close(); // Clear file contents
-				fileCleared = true;
-			}
-
-			FileWriter fw = new FileWriter(file, true);
-			pw = new PrintWriter(fw);
-
+			File file = new File("Inventory.json");
 			ObjectMapper objectMapper = new ObjectMapper();
-			String json = objectMapper.writeValueAsString(product);
-
-			pw.println(json);
-			pw.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Copies product data from the input file to the output file. Converts each
-	 * line from pipe-delimited format to comma-separated format. Stores full
-	 * product info (including type) in a List, and writes a subset to the output
-	 * file.
-	 *
-	 * @param inputFile  The input file path containing product data in
-	 *                   pipe-delimited format.
-	 * @param outputFile The output file path to write formatted product data.
-	 * @return A list of formatted product strings, each including name,
-	 *         description, price, quantity, and type.
-	 */
-	private static List<String> copyFile(String inputFile, String outputFile) {
-		BufferedReader in = null;
-		BufferedWriter out = null;
-		List<String> products = new ArrayList<>();
-		try {
-			in = new BufferedReader(new FileReader(inputFile));
-			out = new BufferedWriter(new FileWriter(outputFile));
-
-			String line;
-
-			while ((line = in.readLine()) != null) {
-				String[] tokens = line.split("\\|");
-				products.add(
-						String.format("%s, %s, %s, %s, %s\n", tokens[0], tokens[1], tokens[2], tokens[3], tokens[4]));
-				out.write(String.format("%s, %s, %s, %s\n", tokens[0], tokens[1], tokens[2], tokens[3]));
+			SalableProduct[] product = objectMapper.readValue(file, SalableProduct[].class);
+			for (int i = 0; i < product.length; i++) {
+				productInventory.addSalableProduct(product[i]);
 			}
-			return products;
-		} catch (FileNotFoundException e) {
-			System.out.println("File not found: " + e.getMessage());
-			return products;
-		} catch (IOException e) {
-			System.out.println("I/O Error: " + e.getMessage());
-			return products;
-		} finally {
-			try {
-				if (in != null)
-					in.close();
-				if (in != null)
-					out.close();
-			} catch (IOException e) {
-				System.out.println("Error closing file streams: " + e.getMessage());
-			}
-		}
-	}
-
-	/**
-	 * Initializes the inventory with sample products by reading from
-	 * "Inventory.txt" and saving to "OutFile.txt" and "OutFile.json". Converts each
-	 * line from the input into a SalableProduct of the correct subclass (Weapon,
-	 * Armor, or Health) and adds it to the product inventory.
-	 *
-	 * @throws IOException If an I/O error occurs while processing files.
-	 */
-	private void initializeSampleProducts() throws IOException {
-		List<String> result = copyFile("Inventory.txt", "OutFile.txt");
-
-		for (int i = 0; i < result.size(); i++) {
-			String[] productInfo = result.get(i).split(", ");
-			String name = productInfo[0].trim();
-			String description = productInfo[1].trim();
-			double price = Double.parseDouble(productInfo[2].trim());
-			int quantity = Integer.parseInt(productInfo[3].trim());
-			SalableProduct product = new SalableProduct(name, description, price, quantity);
-			String type = productInfo[4].trim();
-			switch (type) {
-			case "Weapon":
-				productInventory.addSalableProduct(new Weapon(name, description, price, quantity));
-				break;
-			case "Armor":
-				productInventory.addSalableProduct(new Armor(name, description, price, quantity));
-				break;
-			case "Health":
-				productInventory.addSalableProduct(new Health(name, description, price, quantity));
-				break;
-			default:
-				productInventory.addSalableProduct(product);
-				break;
-			}
-			saveToFile("OutFile.json", product, true);
+		} catch (Exception e) {
+//			e.printStackTrace();
+			System.out.println("Unable to read saved inventory adding default inventory to the store");
+			productInventory.addSalableProduct(new Weapon("Sword", "Sharp and can swing", 1200.0, 10));
+			productInventory.addSalableProduct(new Weapon("Axe", "Sharp and pointy", 800.0, 15));
+			productInventory.addSalableProduct(new Armor("Sheild", "Stops things", 1500.0, 30));
+			productInventory.addSalableProduct(new Armor("Helmet", "Save my head", 150.0, 20));
+			productInventory.addSalableProduct(new Health("Health Herb", "Tastes bad but helps", 150.0, 25));
+			productInventory.addSalableProduct(new Health("Med Kit", "Life saver", 150.0, 35));
 		}
 	}
 
