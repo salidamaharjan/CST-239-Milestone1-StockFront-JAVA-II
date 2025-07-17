@@ -1,6 +1,7 @@
 package app;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -14,6 +15,20 @@ public class InventoryManager {
 	 */
 	public InventoryManager() {
 		this.storeInventory = new ArrayList<>();
+	}
+
+	/**
+	 * Sorts the store inventory by product name, and if two products have the same
+	 * name, it sorts them by price.
+	 *
+	 * This method changes the order of items in the storeInventory list. It puts
+	 * names in alphabetical order, and for matching names, it puts lower prices
+	 * first.
+	 */
+	public void sortByNameThenPrice() {
+//		Collections.sort(storeInventory,
+//				Comparator.comparing(SalableProduct::getName).thenComparing(SalableProduct::getPrice));
+		Collections.sort(storeInventory);
 	}
 
 	/**
@@ -39,6 +54,7 @@ public class InventoryManager {
 	public void addSalableProduct(SalableProduct product) {
 		if (product != null) {
 			this.storeInventory.add(product);
+
 		} else {
 			System.out.println("Cannot add null product to inventory.");
 		}

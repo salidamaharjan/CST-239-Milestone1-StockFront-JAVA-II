@@ -199,6 +199,8 @@ public class StoreFront {
 	 * Displays the current inventory with product details.
 	 */
 	public void displayInventory() {
+		productInventory.sortByNameThenPrice();
+
 		System.out.println("\n----------------------------- Current Inventory -------------------------------");
 		for (SalableProduct product : productInventory.getAllProduct()) {
 			System.out.printf("Name: %s | Description: %s | Price: $%.2f | Quantity: %d\n", product.getName(),

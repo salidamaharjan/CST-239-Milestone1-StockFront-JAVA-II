@@ -4,7 +4,7 @@ package app;
  * Represents a product that can be sold in the store. Each SalableProduct has a
  * name, description, price, and quantity in stock.
  */
-public class SalableProduct {
+public class SalableProduct implements Comparable<SalableProduct> {
 	private String name;
 	private String description;
 	private double price;
@@ -102,6 +102,15 @@ public class SalableProduct {
 	 */
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+
+	@Override
+	public int compareTo(SalableProduct o) {
+		int nameComparedValue = this.getName().compareToIgnoreCase(o.getName());
+		if(nameComparedValue != 0) {
+			return nameComparedValue;
+		} 
+		return Double.compare(this.getPrice(), o.getPrice());
 	}
 
 }
