@@ -26,8 +26,6 @@ public class InventoryManager {
 	 * first.
 	 */
 	public void sortByNameThenPrice() {
-//		Collections.sort(storeInventory,
-//				Comparator.comparing(SalableProduct::getName).thenComparing(SalableProduct::getPrice));
 		Collections.sort(storeInventory);
 	}
 
