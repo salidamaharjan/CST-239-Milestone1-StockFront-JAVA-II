@@ -1,7 +1,7 @@
 # StoreFront Java ApplicationAdd commentMore actions
 
 Here's a video of the project:
-[Link To Walk Through Video](https://youtu.be/sedV6J4qI5w)
+[Link To Walk Through Video](https://youtu.be/w2hgJZhALOU)
 
 Link to GitHub: [GitHub](https://github.com/salidamaharjan/CST-239-Milestone1-StockFront-JAVA-II/tree/master/src)
 
