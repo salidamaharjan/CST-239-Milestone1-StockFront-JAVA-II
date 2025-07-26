@@ -259,13 +259,20 @@ public class StoreFront {
 	 * @param args Command line arguments (not used)
 	 */
 	public static void main(String[] args) throws IOException {
+
 		StoreFront store = new StoreFront();
 		Scanner scnr = new Scanner(System.in);
 		int choice = 0;
 		int qty = 0;
 		String itemName = "";
 
+		// Start the main StoreFront application interface for customers
 		store.welcomeToStoreFront();
+
+		// Start the AdminService on a new thread to listen for admin commands on port
+		// 9999
+		// This allows admin tasks (like updating inventory) to run in the background
+		new Thread(new AdminService(store.getProductInventory(), 9999)).start();
 
 		// Main interaction loop
 		while (choice != 7) {
