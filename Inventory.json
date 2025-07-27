@@ -28,4 +28,9 @@
   "description" : "Life saver",
   "price" : 150.0,
   "quantity" : 35
-}]
+}, {
+  "name" : "Laser Gun",
+  "description" : "High tech weapon",
+  "price" : 2500.0,
+  "quantity" : 5
+} ]
