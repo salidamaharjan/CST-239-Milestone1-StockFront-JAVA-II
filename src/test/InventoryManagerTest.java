@@ -11,6 +11,12 @@ import app.Weapon;
 import static org.junit.Assert.*;
 import java.util.List;
 
+/**
+ * Unit tests for the {@link InventoryManager} class to ensure proper
+ * functionality of adding, removing, sorting, and retrieving products in the
+ * inventory. The tests cover a variety of scenarios including adding products,
+ * removing products, and sorting the inventory by name and price.
+ */
 public class InventoryManagerTest {
 
 	private InventoryManager inventoryManager;
@@ -18,6 +24,10 @@ public class InventoryManagerTest {
 	private SalableProduct axe;
 	private SalableProduct shield;
 
+	/**
+	 * Sets up the test environment by initializing the inventory manager and adding
+	 * sample products to the inventory. This method is called before each test.
+	 */
 	@Before
 	public void setUp() {
 		// Initialize the inventory manager
@@ -34,6 +44,10 @@ public class InventoryManagerTest {
 		inventoryManager.addSalableProduct(shield);
 	}
 
+	/**
+	 * Tests adding a valid product to the inventory. Verifies that the product is
+	 * added successfully.
+	 */
 	@Test
 	public void testAddSalableProduct() {
 		// Add a new product to the inventory
@@ -45,6 +59,10 @@ public class InventoryManagerTest {
 		assertTrue("Hammer should be added to the inventory", products.contains(hammer));
 	}
 
+	/**
+	 * Tests adding a null product to the inventory. Verifies that no product is
+	 * added and the inventory size remains unchanged.
+	 */
 	@Test
 	public void testAddNullProduct() {
 		// Try adding a null product
@@ -55,6 +73,10 @@ public class InventoryManagerTest {
 		assertEquals("Inventory size should remain the same", 3, products.size());
 	}
 
+	/**
+	 * Tests removing a quantity of an existing product from the inventory. Verifies
+	 * that the product quantity is correctly updated.
+	 */
 	@Test
 	public void testRemoveSalableProduct() {
 		// Remove a quantity from a product
@@ -64,6 +86,10 @@ public class InventoryManagerTest {
 		assertEquals("Sword quantity should be updated to 5", 5, sword.getQuantity());
 	}
 
+	/**
+	 * Tests removing a product that does not exist in the inventory. Verifies that
+	 * no change occurs and the error message is printed.
+	 */
 	@Test
 	public void testRemoveSalableProduct_ProductNotFound() {
 		// Try to remove from a product not in inventory (e.g., null)
@@ -73,6 +99,10 @@ public class InventoryManagerTest {
 		assertEquals("Sword quantity should remain unchanged", 10, sword.getQuantity());
 	}
 
+	/**
+	 * Tests sorting the inventory by product name first and then by price. Verifies
+	 * that the inventory is sorted correctly.
+	 */
 	@Test
 	public void testSortByNameThenPrice() {
 		// Add unsorted products
@@ -93,6 +123,11 @@ public class InventoryManagerTest {
 		assertEquals("Fifth product should be Sword", sword, sortedProducts.get(4));
 	}
 
+	/**
+	 * Tests retrieving a product from the inventory by its name. Verifies that the
+	 * correct product is returned.
+	 */
+
 	@Test
 	public void testGetProductByName() {
 		// Search for a product by name
@@ -102,6 +137,10 @@ public class InventoryManagerTest {
 		assertEquals("The product should be Sword", sword, foundProduct);
 	}
 
+	/**
+	 * Tests searching for a non-existing product by name. Verifies that no product
+	 * is found and returns null.
+	 */
 	@Test
 	public void testGetProductByName_NotFound() {
 		// Search for a non-existing product by name
@@ -111,6 +150,10 @@ public class InventoryManagerTest {
 		assertNull("The product should not be found", foundProduct);
 	}
 
+	/**
+	 * Tests retrieving all products from the inventory. Verifies that all products
+	 * are returned correctly.
+	 */
 	@Test
 	public void testGetAllProduct() {
 		// Verify that all products are returned

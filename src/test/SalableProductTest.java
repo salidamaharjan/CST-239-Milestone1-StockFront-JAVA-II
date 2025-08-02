@@ -7,11 +7,20 @@ import app.SalableProduct;
 
 import static org.junit.Assert.*;
 
+/**
+ * Unit tests for the {@link SalableProduct} class to ensure correct
+ * functionality of constructors, getters, setters, and comparison logic. These
+ * tests verify that the product class behaves as expected in various scenarios.
+ */
 public class SalableProductTest {
 
 	private SalableProduct product1;
 	private SalableProduct product2;
 
+	/**
+	 * Sets up the test environment by initializing product objects before each
+	 * test. This method is called before each test method.
+	 */
 	@Before
 	public void setUp() {
 		// Initialize products before each test
@@ -19,6 +28,11 @@ public class SalableProductTest {
 		product2 = new SalableProduct("Smartphone", "Latest smartphone", 699.99, 20);
 	}
 
+	/**
+	 * Tests the default constructor of {@link SalableProduct}. Verifies that the
+	 * default product values are set correctly (name, description, price,
+	 * quantity).
+	 */
 	@Test
 	public void testDefaultConstructor() {
 		// Test the default constructor
@@ -29,6 +43,10 @@ public class SalableProductTest {
 		assertEquals("Default product quantity should be 0.", 0, defaultProduct.getQuantity());
 	}
 
+	/**
+	 * Tests the parameterized constructor of {@link SalableProduct}. Verifies that
+	 * the product is initialized correctly with the provided values.
+	 */
 	@Test
 	public void testParameterizedConstructor() {
 		// Test the parameterized constructor
@@ -39,6 +57,10 @@ public class SalableProductTest {
 		assertEquals("Product quantity should match constructor value.", 10, product1.getQuantity());
 	}
 
+	/**
+	 * Tests the getter and setter methods of {@link SalableProduct}. Verifies that
+	 * setters correctly update the product's properties.
+	 */
 	@Test
 	public void testGettersAndSetters() {
 		// Test setters and getters
@@ -54,6 +76,11 @@ public class SalableProductTest {
 		assertEquals("Product quantity should be updated.", 5, product1.getQuantity());
 	}
 
+	/**
+	 * Tests the {@link SalableProduct#compareTo(SalableProduct)} method when
+	 * comparing different products. Verifies that the comparison logic works
+	 * correctly for products with different names and prices.
+	 */
 	@Test
 	public void testCompareToWithDifferentProducts() {
 		// Test compareTo method for different products
@@ -69,6 +96,11 @@ public class SalableProductTest {
 		assertTrue("Product4 should come after Product3 by price.", product4.compareTo(product3) > 0);
 	}
 
+	/**
+	 * Tests the {@link SalableProduct#compareTo(SalableProduct)} method when
+	 * comparing two identical products. Verifies that the method returns 0 when the
+	 * products are considered equal.
+	 */
 	@Test
 	public void testCompareToWithEqualProducts() {
 		// Test compareTo when products are identical
@@ -76,6 +108,11 @@ public class SalableProductTest {
 		assertEquals("Products should be considered equal.", 0, product1.compareTo(identicalProduct));
 	}
 
+	/**
+	 * Tests the {@link SalableProduct#compareTo(SalableProduct)} method when
+	 * comparing products with the same name but different prices. Verifies that the
+	 * product with the higher price comes first.
+	 */
 	@Test
 	public void testCompareToWithSameNameDifferentPrice() {
 		// Test comparison when names are the same, but prices differ

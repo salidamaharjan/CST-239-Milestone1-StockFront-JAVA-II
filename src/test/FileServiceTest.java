@@ -13,11 +13,21 @@ import app.FileService;
 import app.SalableProduct;
 import app.Weapon;
 
+/**
+ * Unit tests for the {@link FileService} class to ensure that products can be
+ * saved to a file correctly. The tests cover various scenarios like saving an
+ * empty list, saving a list when the file already exists, and saving products
+ * that contain special characters.
+ */
 public class FileServiceTest {
 
 	private static final String TEST_FILE = "test_inventory.json";
 	private List<SalableProduct> testProducts;
 
+	/**
+	 * Set up the test environment by creating a list of sample products for
+	 * testing. This method is run before each test.
+	 */
 	@Before
 	public void setUp() {
 		// Create sample products for testing
@@ -29,6 +39,10 @@ public class FileServiceTest {
 		testProducts = Arrays.asList(sword, axe, shield);
 	}
 
+	/**
+	 * Tests saving an empty list of products to a file. Verifies that the file is
+	 * created and that it is empty.
+	 */
 	@Test
 	public void testSaveToFile_EmptyList() {
 		// Save an empty list
@@ -49,6 +63,10 @@ public class FileServiceTest {
 		}
 	}
 
+	/**
+	 * Tests saving products to a file when the file already exists. Verifies that
+	 * the file is overwritten correctly.
+	 */
 	@Test
 	public void testSaveToFile_FileAlreadyExists() {
 		// Save the products initially
@@ -71,6 +89,11 @@ public class FileServiceTest {
 		}
 	}
 
+	/**
+	 * Tests saving products with special characters in their names to a file.
+	 * Verifies that special characters are handled correctly during file saving and
+	 * reading.
+	 */
 	@Test
 	public void testSaveToFile_SpecialCharacters() {
 		// Create a product with special characters in its name

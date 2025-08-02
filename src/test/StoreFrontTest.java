@@ -7,16 +7,29 @@ import static org.junit.Assert.*;
 import java.util.Map;
 import java.util.List;
 
+/**
+ * Unit tests for the {@link StoreFront} class. 
+ * This class tests various operations on the store such as adding products to inventory, 
+ * adding and removing products from the shopping cart, purchasing, and canceling purchases.
+ */
 public class StoreFrontTest {
 
 	private StoreFront store;
 
+	/**
+     * Initializes the {@link StoreFront} object before each test method is executed.
+     * This method sets up the testing environment and ensures the store is in a consistent state for each test.
+     */
 	@Before
 	public void setUp() {
 		// Initialize the StoreFront object before each test
 		store = new StoreFront();
 	}
 
+	 /**
+     * Tests the initialization of sample products in the store's inventory.
+     * Verifies that at least 6 products are added when no file exists for the inventory.
+     */
 	@Test
 	public void testInitializeSampleProducts() {
 		// Ensure that the default products are added when no file exists
@@ -27,6 +40,10 @@ public class StoreFrontTest {
 		assertTrue("There should be at least 6 products", products.size() >= 6);
 	}
 
+	/**
+     * Tests adding a product to the store's inventory.
+     * Verifies that a new product is successfully added to the inventory.
+     */
 	@Test
 	public void testAddProductToInventory() {
 		// Create a new product
@@ -40,6 +57,10 @@ public class StoreFrontTest {
 		assertEquals("Product name should be Bow", "Bow", fetchedProduct.getName());
 	}
 
+	 /**
+     * Tests adding a product to the shopping cart.
+     * Verifies that the product is correctly added to the cart with the appropriate quantity.
+     */
 	@Test
 	public void testAddToCart() {
 		store.addToCart("Sword", 2);
@@ -55,6 +76,10 @@ public class StoreFrontTest {
 		assertEquals("Quantity in cart should be 2", Integer.valueOf(2), productsInCart.get(swordInInventory));
 	}
 
+	/**
+     * Tests removing a product from the shopping cart.
+     * Verifies that the quantity of the product is updated correctly in the cart after removal.
+     */
 	@Test
 	public void testRemoveFromCart() {
 		store.addToCart("Axe", 3);
@@ -72,6 +97,10 @@ public class StoreFrontTest {
 		assertEquals("Quantity in cart should be 1", Integer.valueOf(1), productsInCart.get(axeInInventory));
 	}
 
+	/**
+     * Tests purchasing products from the shopping cart.
+     * Verifies that the cart is emptied and inventory is updated after a purchase.
+     */
 	@Test
 	public void testPurchaseFromCart() {
 		// Add products to the cart
@@ -90,6 +119,10 @@ public class StoreFrontTest {
 		assertTrue("Total price should have been deducted from inventory", prePurchaseTotal > 0);
 	}
 
+	/**
+     * Tests canceling a purchase.
+     * Verifies that the cart retains its contents after canceling the purchase.
+     */
 	@Test
 	public void testCancelPurchase() {
 		// Add products to the cart
@@ -104,6 +137,10 @@ public class StoreFrontTest {
 		assertTrue("Cart should contain products after canceling", cart.getProductsInCart().size() > 0);
 	}
 
+	/**
+     * Tests displaying the inventory.
+     * Verifies that the inventory has at least the default products when displayed.
+     */
 	@Test
 	public void testDisplayInventory() {
 		// Display inventory (this is typically more of a UI function, but we can check

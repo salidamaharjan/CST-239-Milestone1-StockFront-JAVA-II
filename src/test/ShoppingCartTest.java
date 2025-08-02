@@ -9,11 +9,21 @@ import app.ShoppingCart;
 import static org.junit.Assert.*;
 import java.util.Map;
 
+/**
+ * Unit tests for the {@link ShoppingCart} class. This class tests various
+ * operations on the shopping cart such as adding products, removing products,
+ * clearing the cart, and calculating the total price.
+ */
 public class ShoppingCartTest {
 
 	private ShoppingCart cart;
 	private SalableProduct product1;
 	private SalableProduct product2;
+
+	/**
+	 * Sets up the test environment by initializing the shopping cart and test
+	 * products. This method is called before each test method.
+	 */
 
 	@Before
 	public void setUp() {
@@ -25,6 +35,10 @@ public class ShoppingCartTest {
 		cart = new ShoppingCart();
 	}
 
+	/**
+	 * Tests adding products to the shopping cart. Verifies that the correct
+	 * quantity of products is added to the cart.
+	 */
 	@Test
 	public void testAddToCart() {
 		// Test adding products to the cart
@@ -38,6 +52,11 @@ public class ShoppingCartTest {
 		assertEquals("Cart should contain 3 units of Smartphone", Integer.valueOf(3), productsInCart.get(product2));
 	}
 
+	/**
+	 * Tests adding an existing product to the cart, updating the product quantity.
+	 * Verifies that the quantity is updated correctly when adding the same product
+	 * again.
+	 */
 	@Test
 	public void testAddToCartWithExistingProduct() {
 		// Test adding an existing product to the cart (should update quantity)
@@ -50,6 +69,10 @@ public class ShoppingCartTest {
 		assertEquals("Cart should contain 5 units of Laptop", Integer.valueOf(5), productsInCart.get(product1));
 	}
 
+	/**
+	 * Tests removing a specific quantity of a product from the cart. Verifies that
+	 * the quantity is correctly reduced after removal.
+	 */
 	@Test
 	public void testRemoveFromCart() {
 		// Test removing products from the cart
@@ -63,6 +86,10 @@ public class ShoppingCartTest {
 				productsInCart.get(product1));
 	}
 
+	/**
+	 * Tests removing a product completely from the cart. Verifies that the product
+	 * is completely removed from the cart after setting quantity to zero.
+	 */
 	@Test
 	public void testRemoveProductCompletely() {
 		// Test removing a product completely from the cart
@@ -75,6 +102,10 @@ public class ShoppingCartTest {
 		assertFalse("Cart should not contain Laptop after complete removal", productsInCart.containsKey(product1));
 	}
 
+	/**
+	 * Tests clearing all products from the cart. Verifies that the cart is empty
+	 * after clearing.
+	 */
 	@Test
 	public void testClearCart() {
 		// Test clearing the cart
@@ -88,6 +119,11 @@ public class ShoppingCartTest {
 		assertTrue("Cart should be empty after clear", productsInCart.isEmpty());
 	}
 
+	/**
+	 * Tests calculating the total price of the products in the cart. Verifies that
+	 * the total price is calculated correctly based on the product quantities and
+	 * prices.
+	 */
 	@Test
 	public void testGetTotalPrice() {
 		// Test calculating the total price of the cart
@@ -98,6 +134,10 @@ public class ShoppingCartTest {
 		assertEquals("Total price should be correct", expectedTotal, cart.getTotalPrice(), 0.001);
 	}
 
+	/**
+	 * Tests calculating the total price of an empty cart. Verifies that the total
+	 * price is 0.0 when the cart is empty.
+	 */
 	@Test
 	public void testGetTotalPriceWithEmptyCart() {
 		// Test getting total price for an empty cart
