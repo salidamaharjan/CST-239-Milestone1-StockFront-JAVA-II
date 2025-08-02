@@ -27,6 +27,23 @@ public class Weapon extends SalableProduct implements Comparable<SalableProduct>
 		super(name, description, price, quantity);
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null || getClass() != obj.getClass())
+			return false;
+		if (!super.equals(obj))
+			return false;
+		Weapon weapon = (Weapon) obj;
+		return super.equals(obj); // Inherits the equality of the base class
+	}
+
+	@Override
+	public int hashCode() {
+		return super.hashCode(); // Inherits the hashcode of the base class
+	}
+
 	/**
 	 * Compares this {@code Weapon} object to another {@code Weapon} based on their
 	 * names. The comparison is case-insensitive.

@@ -1,5 +1,7 @@
 package app;
 
+import java.util.Objects;
+
 /**
  * Represents a product that can be sold in the store. Each SalableProduct has a
  * name, description, price, and quantity in stock.
@@ -32,6 +34,20 @@ public class SalableProduct implements Comparable<SalableProduct> {
 		this.quantity = quantity;
 	}
 
+	@Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        SalableProduct that = (SalableProduct) obj;
+        return Double.compare(that.price, price) == 0 && quantity == that.quantity &&
+               Objects.equals(name, that.name) && Objects.equals(description, that.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, description, price, quantity);
+    }
+    
 	/**
 	 * Gets the name of the product.
 	 *

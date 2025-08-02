@@ -22,6 +22,8 @@ public class FileService {
 			mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filename), products);
 		} catch (Exception e) {
 			e.printStackTrace();
+			
 		}
+
 	}
 }
